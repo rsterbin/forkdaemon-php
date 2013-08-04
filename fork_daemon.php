@@ -532,7 +532,7 @@ class fork_daemon
 	public function register_parent_child_exit($function_name, $bucket = self::DEFAULT_BUCKET)
 	{
 		/* call parent function */
-		if ( method_exists($this, $function_name) || function_exists($function_name) )
+		if ( ( is_string($function_name) && method_exists($this, $function_name) ) || is_callable($function_name) )
 		{
 			$this->parent_function_child_exited[$bucket] = $function_name;
 			return true;
@@ -551,7 +551,7 @@ class fork_daemon
 	public function register_logging($function_name, $severity)
 	{
 		/* call parent function */
-		if ( method_exists($this, $function_name) || function_exists($function_name) )
+		if ( ( is_string($function_name) && method_exists($this, $function_name) ) || is_callable($function_name) )
 		{
 			$this->log_function[$severity] = $function_name;
 			return true;
